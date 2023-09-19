@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo img {
+            width: 100px;
+            height: 100px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #3498db;
+            color: #ffffff;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body class="login">
+    <div class="container">
+        <div class="logo">
+            <img src="https://aims.indianrailways.gov.in/IPAS/loginImages/images/rail-icon-in.png" class="abc-img" width="300" height="300">
+        </div>
+        <form action="/index.html" class="loginForm">
+            <div class="input-group">
+                <label for="username" class="label">Username</label>
+                <input type="text" id="username" class="input" name="username" placeholder="Enter your username">
+                <span class="error-message"></span>
+            </div>
+            <div class="input-group">
+                <label for="password" class="label">Password</label>
+                <input type="password" id="password" class="password" name="password" placeholder="Enter your password">
+                <span class="error-message"></span>
+            </div><br>
+            <button class="button" type="submit">Login</button>
+        </form>
+    </div>
+    <script>
+        class Login{
+            constructor(form, fields){
+                this.form = form;
+                this.fields=fields;
+                this.validateonSubmit();
+            }
+            validateonSubmit(){
+                let self = this;
+                this.form.addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    var error = 0;
+                    self.fields.forEach((field) => {
+                        const input = document.querySelector('#${field}');
+                        if(self.validateFields(input) == false) {
+                            error++;
+                        }
+                        if (error == 0) {
+                            console.log("success");
+                        }
+                    });
+                });
+            }
+            validateFields(field){
+                if(field.value.trim() === "") {
+                    this.setStatus(
+                        field,
+                        `${field.previousElementSibling.innerText} cannot be blank`,
+                        "error"
+                    );
+                    return false;
+		    } else {
+			if (field.type == "password") {
+				if (field.value.length < 8) {
+					this.setStatus(
+						field, 
+                    `${field.previousElementSibling.innerText} must be at least 8 characters`,
+						"error"
+					);
+					return false;
+				} else {
+					this.setStatus(field, null, "success");
+					return true;
+				}
+			} else {
+				this.setStatus(field, null, "success");
+				return true;
+			}
+		}
+	}
+    setStatus(field, message, status) {
+		const errorMessage = field.parentElement.querySelector(".error-message");
+		if (status == "success") {
+			if (errorMessage) {
+				errorMessage.innerText = "";
+			}
+			field.classList.remove("input-error");
+		}
+		if (status == "error") {
+			errorMessage.innerText = message;
+			field.classList.add("input-error");
+                }
+            }
+        }
+        const form = document.guerySelector(".loginForm");
+        if(form) {
+            const fields = ["username" , "password"];
+            const validator = new Login(form, fields);
+        }
+        <text>
+        import mysql.connector
+        mydb = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="123456789",
+            database="product",
+            auth_plugin="mysql_native_password"
+        )
+        cursor=mydb.cursor(buffered=True)
+        print(mydb)
+    </text>
+    </script>
+</body>
+</html>
